@@ -22,24 +22,28 @@
   ansible.builtin.service:
     name: "{{ kea_dhcp4_svc }}"
     enabled: "{{ kea_dhcp4_enable }}"
+  when: kea_packages | select('regex', '^isc-kea-dhcp4.*') | list | length > 0
   tags: setup
 
 - name: Enable/disable DHCP6 service
   ansible.builtin.service:
     name: "{{ kea_dhcp6_svc }}"
     enabled: "{{ kea_dhcp6_enable }}"
+  when: kea_packages | select('regex', '^isc-kea-dhcp6.*') | list | length > 0
   tags: setup
 
 - name: Enable/disable DDNS service
   ansible.builtin.service:
     name: "{{ kea_ddns_svc }}"
     enabled: "{{ kea_ddns_enable }}"
+  when: kea_packages | select('regex', '^isc-kea-ddns') | list | length > 0
   tags: setup
 
 - name: Enable/disable ctrl agent service
   ansible.builtin.service:
     name: "{{ kea_ctrl_agent_svc }}"
     enabled: "{{ kea_ctrl_agent_enable }}"
+  when: kea_packages | select('regex', '^isc-kea-ctrl-agent') | list | length > 0
   tags: setup
 
 - name: Install dhcp4 configuration
